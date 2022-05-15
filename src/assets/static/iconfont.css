@@ -49,3 +49,19 @@
 .icon-comment:before {
   content: "\e607";
 }
+/* success */
+.icon-success:before {
+  content: "\e615";
+}
+/* error */
+.icon-error:before {
+  content: "\e6c6";
+}
+/* warning */
+.icon-warning:before {
+  content: "\e80e";
+}
+/* info */
+.icon-info:before {
+  content: "\e67d";
+}

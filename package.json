@@ -9,9 +9,11 @@
   },
   "dependencies": {
     "@headlessui/vue": "^1.4.2",
+    "@tailwindcss/forms": "^0.5.0",
     "autoprefixer": "^9",
     "axios": "^0.26.1",
     "css-loader": "^6.5.1",
+    "js-base64": "^3.7.2",
     "particles.vue3": "^1.20.5",
     "postcss": "^7",
     "prettier": "^2.5.1",

@@ -29,5 +29,8 @@ module.exports = {
       opacity: ['disabled'],
       zIndex: ['hover', 'active'],
     }
-  }
+  },
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 }

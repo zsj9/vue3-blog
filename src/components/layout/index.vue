@@ -130,12 +130,22 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'; // @ is an alias to /src
+import { findUserinfo } from '@/apis/userinfo';
+import * as Base64 from 'js-base64';
+
 export default defineComponent({
   setup() {
     // 是否深色模式
     let isDarkMode: { value: boolean } = ref(false);
-    // 是否登录
-    // let isLogin: ({ value: boolean }) = ref(false);
+    if (sessionStorage.getItem('userid') && !localStorage.getItem('userinfo')) {
+      const userid = Base64.decode(sessionStorage.getItem('userid') || '');
+      findUserinfo({ user_id: userid }).then(res => {
+        console.log('res', res);
+        if (res.code === 200) {
+          localStorage.setItem('userinfo', JSON.stringify(res.data));
+        }
+      });
+    }
 
     const changeDark = () => {
       if (document.documentElement.classList.value !== 'dark') {
@@ -149,7 +159,6 @@ export default defineComponent({
     return {
       // 变量
       isDarkMode,
-      // isLogin,
       // 函数
       changeDark,
     };

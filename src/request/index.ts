@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // 创建一个 axios 实例
 const service = axios.create({
-	baseURL: 'http://127.0.0.1:8080/', // 所有的请求地址前缀部分
+	baseURL: '/api', // 所有的请求地址前缀部分
 	timeout: 60000, // 请求超时时间毫秒
 	withCredentials: true, // 异步请求携带cookie
 	headers: {
@@ -26,10 +26,25 @@ service.interceptors.request.use(
 	}
 )
 
+service.interceptors.request.use(
+	config => {
+		//先从浏览器的回话存储中提取token值   
+		const token = sessionStorage.getItem('token')
+		if (token) {
+			config.headers = {
+				...config.headers,
+				Authorization: token
+			}
+			console.log("config", config)
+		}
+		return config
+	}
+)
+
 // 添加响应拦截器
 service.interceptors.response.use(
 	function (response) {
-		console.log(response)
+		console.log("response", response)
 		// 2xx 范围内的状态码都会触发该函数。
 		// 对响应数据做点什么
 		// dataAxios 是 axios 返回数据中的 data
