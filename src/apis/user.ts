@@ -14,7 +14,7 @@ interface User {
 
 interface ResultParams {
 	code: number | string
-	msg : string
+	msg: string
 	data: User
 }
 
@@ -26,7 +26,7 @@ interface UserParam {
 
 // 注册用户
 export const addUser = (param: UserParam): Promise<ResultParams> => {
-  return httpRequest({
+	return httpRequest({
 		url: 'user/register',
 		method: 'post',
 		data: param,
@@ -35,7 +35,7 @@ export const addUser = (param: UserParam): Promise<ResultParams> => {
 
 // 登录
 export const userLogin = (param: UserParam): Promise<ResultParams> => {
-  return httpRequest({
+	return httpRequest({
 		url: 'user/login',
 		method: 'post',
 		data: param,

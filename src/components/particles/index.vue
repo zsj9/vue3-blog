@@ -81,13 +81,13 @@ export default defineComponent({
         },
       },
       interactivity: {
-        detect_on: 'Window',
+        detectsOn: 'window',
         events: {
-          onhover: {
+          onHover: {
             enable: true,
             mode: 'grab',
           },
-          onclick: {
+          onClick: {
             enable: true,
             mode: 'push',
           },
@@ -119,7 +119,7 @@ export default defineComponent({
           },
         },
       },
-      retina_detect: true,
+      detectRetina: true,
     };
 
     return {
@@ -131,7 +131,9 @@ export default defineComponent({
 
 <style scoped>
 #bg-particles {
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   z-index: -1;

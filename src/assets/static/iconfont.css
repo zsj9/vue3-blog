@@ -1,8 +1,9 @@
 @font-face {
-  font-family: "iconfont"; /* Project id 2988180 */
+  font-family: "iconfont";
+  /* Project id 2988180 */
   src: url('./icon/iconfont.woff2?t=1638976465151') format('woff2'),
-       url('./icon/iconfont.woff?t=1638976465151') format('woff'),
-       url('./icon/iconfont.ttf?t=1638976465151') format('truetype');
+    url('./icon/iconfont.woff?t=1638976465151') format('woff'),
+    url('./icon/iconfont.ttf?t=1638976465151') format('truetype');
 }
 
 .iconfont {
@@ -17,50 +18,62 @@
 .icon-search:before {
   content: "\e62f";
 }
+
 /* 白天模式 */
 .icon-morning:before {
   content: "\e632";
 }
+
 /* 夜间模式 */
 .icon-night:before {
   content: "\e6c1";
 }
+
 /* 微信 */
 .icon-weixin:before {
   content: "\e600";
 }
+
 /* qq */
 .icon-QQ:before {
   content: "\e882";
 }
+
 /* github */
 .icon-github:before {
   content: "\e712";
 }
+
 /* 阅读 */
 .icon-read:before {
   content: "\e67e";
 }
+
 /* 未点赞 */
 .icon-noLike:before {
   content: "\e668";
 }
+
 /* 评论 */
 .icon-comment:before {
   content: "\e607";
 }
+
 /* success */
 .icon-success:before {
   content: "\e615";
 }
+
 /* error */
 .icon-error:before {
   content: "\e6c6";
 }
+
 /* warning */
 .icon-warning:before {
   content: "\e80e";
 }
+
 /* info */
 .icon-info:before {
   content: "\e67d";

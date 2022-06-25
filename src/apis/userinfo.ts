@@ -17,7 +17,7 @@ interface Userinfo {
 
 interface ResultParams {
 	code: number | string
-	msg : string
+	msg: string
 	data: Userinfo
 }
 
@@ -29,7 +29,7 @@ interface UserInfoParam {
 
 // 新增用户信息
 export function addUserinfo(param: UserInfoParam): Promise<ResultParams> {
-  return httpRequest({
+	return httpRequest({
 		url: 'userinfo/add',
 		method: 'post',
 		data: param,
@@ -37,7 +37,7 @@ export function addUserinfo(param: UserInfoParam): Promise<ResultParams> {
 }
 
 export function findUserinfo(param: { user_id: string }): Promise<ResultParams> {
-  return httpRequest({
+	return httpRequest({
 		url: 'userinfo/find',
 		method: 'post',
 		data: param,

@@ -22,9 +22,11 @@ module.exports = {
     'vue/max-attributes-per-line': 'off',
     // 没有内容的元素需要使用闭合标签
     'vue/html-self-closing': 'off',
+    // 
+    "vue/comment-directive": 'off',
     // 禁止使用 var
     'no-var': 'error',
     // 必须全等
-    'eqeqeq': 2
+    'eqeqeq': 2,
   },
 }

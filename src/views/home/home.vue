@@ -30,7 +30,7 @@
       <!-- 分页 -->
     </div>
     <!-- 右侧个人信息、分类信息、标签信息 -->
-    <div class="px-5 space-y-6">
+    <div class="px-5 space-y-6 md:hidden">
       <!-- 个人信息 -->
       <div class="flex flex-col items-center border px-20 py-2">
         <img
@@ -69,7 +69,7 @@
 </template>
 
 <script lang="ts">
-import {  defineComponent } from 'vue';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'Home',
