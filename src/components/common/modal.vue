@@ -138,7 +138,6 @@ export default defineComponent({
 
 <style scoped>
 .footer-btn {
-  @apply inline-flex justify-center rounded-md
-          px-4 py-2 text-sm font-medium;
+  @apply inline-flex justify-center rounded-md px-4 py-2 text-sm font-medium;
 }
 </style>

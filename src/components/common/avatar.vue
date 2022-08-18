@@ -4,19 +4,23 @@
       class="
         flex
         relative
-        w-10
-        h-10
         justify-center
         items-center
         m-1
         mr-2
         text-xl text-white
+        border
       "
-      :class="[square ? 'rounded' : 'rounded-full', { 'bg-orange-500': !src }]"
+      :class="[square ? 'rounded' : 'rounded-full']"
+      :style="{ width: width, height: height }"
     >
       <img v-if="src" :src="src" />
       <span v-else-if="name">{{ name[0] }}</span>
-      <img v-else src="@/assets/images/default_user.png" />
+      <img
+        v-else
+        src="@/assets/images/default_user.png"
+        class="w-full h-full"
+      />
     </div>
   </div>
 </template>
@@ -36,6 +40,14 @@ export default defineComponent({
     square: {
       type: Boolean,
       default: false,
+    },
+    width: {
+      type: String,
+      default: '35px',
+    },
+    height: {
+      type: String,
+      default: '35px',
     },
   },
 });

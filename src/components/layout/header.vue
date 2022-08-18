@@ -97,6 +97,7 @@
                   <button
                     class="menu-list"
                     :class="active ? 'bg-blue-500 text-white' : 'text-gray-900'"
+                    @click="signOut"
                   >
                     退出
                   </button>
@@ -176,51 +177,21 @@
       </div>
     </div>
     <!-- modal -->
-    <Modal
-      title="用户设置"
+    <UserSetingModal
       :isOpen="userModal.isOpen"
-      @close="userModal.isOpen = false"
-    >
-      <div>
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-      </div>
-    </Modal>
-
-    <!-- <Modal
-      title="用户设置"
-      :isOpen="userModal.isOpen"
-      @close="userModal.isOpen = false"
-    >
-      <label class="cursor-pointer mt-6">
-        <span
-          class="
-            mt-2
-            text-base
-            leading-normal
-            px-4
-            py-2
-            bg-blue-500
-            text-white
-            rounded-full
-          "
-        >
-          上传头像
-        </span>
-        <input type="file" class="hidden" multiple accept />
-      </label>
-    </Modal> -->
+      @onClose="userModal.isOpen = false"
+      :userinfo="userinfo"
+    />
   </header>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, reactive } from 'vue'; // @ is an alias to /src
-import Drawer from '@/components/drawer/index.vue';
-import Modal from '@/components/modal/index.vue';
-import Avatar from '@/components/avatar/index.vue';
+import { useRouter } from 'vue-router';
+import Drawer from '@/components/common/drawer.vue';
+import Avatar from '@/components/common/avatar.vue';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
+import UserSetingModal from './modal/userSeting.vue';
 export default defineComponent({
   components: {
     Drawer,
@@ -228,10 +199,12 @@ export default defineComponent({
     MenuButton,
     MenuItems,
     MenuItem,
-    Modal,
+    UserSetingModal,
     Avatar,
   },
   setup() {
+    const router = useRouter();
+
     // 是否深色模式
     let isDarkMode: { value: boolean } = ref(false);
     // 是否显示侧边栏
@@ -250,6 +223,13 @@ export default defineComponent({
         document.documentElement.classList.remove('dark');
       }
     };
+    // 退出登录
+    const signOut = () => {
+      localStorage.removeItem('userinfo');
+      localStorage.removeItem('password');
+      sessionStorage.removeItem('token');
+      router.push('/login');
+    };
     return {
       // 变量
       isDarkMode,
@@ -258,6 +238,7 @@ export default defineComponent({
       userModal,
       // 函数
       changeDark,
+      signOut,
     };
   },
 });

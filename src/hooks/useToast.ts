@@ -1,5 +1,5 @@
 import { createVNode, render } from 'vue'
-import toastTemplate from '@/components/toast/toast.vue'
+import toastTemplate from '@/components/common/toast.vue'
 export interface IProps {
   message?: string;
   status?: string;

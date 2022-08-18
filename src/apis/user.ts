@@ -7,25 +7,31 @@ interface User {
 	username: string
 	password: string
 	token: string
-	created_at: string
-	updated_at: string
-	deleted_at: string
+	createdAt: string
+	updatedAt: string
+	deletedAt: string
 }
 
 interface ResultParams {
 	code: number | string
-	msg: string
+	message: string
 	data: User
 }
 
 // 定义接口的传参
-interface UserParam {
+interface UserRegisterParam {
+	name: string
+	username: string
+	password: string
+}
+
+interface UserLoginParam {
 	username: string
 	password: string
 }
 
 // 注册用户
-export const addUser = (param: UserParam): Promise<ResultParams> => {
+export const userRegister = (param: UserRegisterParam): Promise<ResultParams> => {
 	return httpRequest({
 		url: 'user/register',
 		method: 'post',
@@ -34,7 +40,7 @@ export const addUser = (param: UserParam): Promise<ResultParams> => {
 }
 
 // 登录
-export const userLogin = (param: UserParam): Promise<ResultParams> => {
+export const userLogin = (param: UserLoginParam): Promise<ResultParams> => {
 	return httpRequest({
 		url: 'user/login',
 		method: 'post',

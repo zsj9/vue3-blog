@@ -17,29 +17,27 @@ interface Userinfo {
 
 interface ResultParams {
 	code: number | string
-	msg: string
+	message: string
 	data: Userinfo
 }
 
-// 定义接口的传参
-interface UserInfoParam {
-	name: string,
-	user_id: string
-}
-
-// 新增用户信息
-export function addUserinfo(param: UserInfoParam): Promise<ResultParams> {
+// 上传用户图片
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function userinfoUpload(param: any): Promise<ResultParams> {
 	return httpRequest({
-		url: 'userinfo/add',
+		url: 'userinfo/upload',
 		method: 'post',
 		data: param,
+		headers: {
+			"content-type": "multipart/form-data"
+		}
 	})
 }
 
-export function findUserinfo(param: { user_id: string }): Promise<ResultParams> {
-	return httpRequest({
-		url: 'userinfo/find',
-		method: 'post',
-		data: param,
-	})
-}
+// export function findUserinfo(param: { user_id: string }): Promise<ResultParams> {
+// 	return httpRequest({
+// 		url: 'userinfo/find',
+// 		method: 'post',
+// 		data: param,
+// 	})
+// }

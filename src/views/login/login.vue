@@ -64,7 +64,6 @@
 import { defineComponent, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { userLogin } from '@/apis/user';
-import { findUserinfo } from '@/apis/userinfo';
 import * as Base64 from 'js-base64';
 // hooks
 import toast from '@/hooks/useToast';
@@ -98,15 +97,13 @@ export default defineComponent({
       userLogin({ username: user.username, password }).then(res => {
         if (res.code === 200) {
           sessionStorage.setItem('token', res.data.token);
-          findUserinfo({ user_id: res.data.id }).then(res2 => {
-            localStorage.setItem('userinfo', JSON.stringify(res2.data));
-          });
+          localStorage.setItem('userinfo', JSON.stringify(res.data));
           if (user.remember) {
             localStorage.setItem('password', 'Bting' + Base64.encode(password));
           }
           router.push('/');
         } else {
-          toast({ message: res.msg, status: 'error' });
+          toast({ message: res.message, status: 'error' });
         }
       });
     };

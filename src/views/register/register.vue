@@ -91,8 +91,7 @@
 import { defineComponent, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { addUser } from '@/apis/user';
-import { addUserinfo } from '@/apis/userinfo';
+import { userRegister } from '@/apis/user';
 
 // hooks
 import toast from '@/hooks/useToast';
@@ -130,28 +129,16 @@ export default defineComponent({
       ) {
         return;
       }
-      addUser({
+      userRegister({
+        name: register.name,
         username: register.username,
         password: register.password,
-      }).then(res => {
-        if (res.code === 200) {
-          createUserinfo(res.data.id);
-        } else {
-          toast({ message: res.msg, status: 'error' });
-        }
-      });
-    };
-
-    const createUserinfo = (userId: string) => {
-      addUserinfo({
-        name: register.name,
-        user_id: userId,
       }).then(res => {
         if (res.code === 200) {
           toast({ message: '注册成功', status: 'success' });
           router.push('/login');
         } else {
-          toast({ message: res.msg, status: 'error' });
+          toast({ message: res.message, status: 'error' });
         }
       });
     };
