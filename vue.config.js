@@ -14,8 +14,8 @@ module.exports = {
     hotOnly: false,
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:8080/api',
-        // target: 'https://node-server-puce.vercel.app/api/',
+        // target: 'http://127.0.0.1:8080/api',
+        target: 'https://node-server-puce.vercel.app/api/',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '',

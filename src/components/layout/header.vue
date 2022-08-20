@@ -66,7 +66,7 @@
               "
             >
               <div class="px-1 py-1">
-                <MenuItem v-slot="{ active }" v-if="!userinfo">
+                <MenuItem v-slot="{ active }" v-if="!userinfo._id">
                   <router-link
                     class="menu-list"
                     :class="active ? 'bg-blue-500 text-white' : 'text-gray-900'"
@@ -75,7 +75,7 @@
                     登录
                   </router-link>
                 </MenuItem>
-                <MenuItem v-slot="{ active }" v-if="!userinfo">
+                <MenuItem v-slot="{ active }" v-if="!userinfo._id">
                   <router-link
                     class="menu-list"
                     :class="active ? 'bg-blue-500 text-white' : 'text-gray-900'"
@@ -84,7 +84,7 @@
                     注册
                   </router-link>
                 </MenuItem>
-                <MenuItem v-slot="{ active }" v-if="userinfo">
+                <MenuItem v-slot="{ active }" v-if="userinfo._id">
                   <button
                     class="menu-list"
                     :class="active ? 'bg-blue-500 text-white' : 'text-gray-900'"
@@ -93,7 +93,7 @@
                     用户设置
                   </button>
                 </MenuItem>
-                <MenuItem v-slot="{ active }" v-if="userinfo">
+                <MenuItem v-slot="{ active }" v-if="userinfo._id">
                   <button
                     class="menu-list"
                     :class="active ? 'bg-blue-500 text-white' : 'text-gray-900'"
@@ -128,8 +128,10 @@
             <div class="slideout">
               <Avatar square :name="userinfo.name" :src="userinfo.avatar" />
               <div class="ml-2">
-                <p>柒杰</p>
-                <p class="text-sm text-gray-400">有钱终成眷属，没钱亲眼目睹</p>
+                <p>{{ userinfo.name }}</p>
+                <p class="text-sm text-gray-400">
+                  {{ userinfo.remark || '这个人很懒，什么都没留下' }}
+                </p>
               </div>
             </div>
             <!-- 文章记录 -->
@@ -180,6 +182,8 @@
     <UserSetingModal
       :isOpen="userModal.isOpen"
       @onClose="userModal.isOpen = false"
+      @setUserinfo="setUserinfo"
+      @setAvatar="setAvatar"
       :userinfo="userinfo"
     />
   </header>
@@ -192,6 +196,9 @@ import Drawer from '@/components/common/drawer.vue';
 import Avatar from '@/components/common/avatar.vue';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
 import UserSetingModal from './modal/userSeting.vue';
+// api
+import { getCurrentUserinfo } from '@/apis/userinfo';
+
 export default defineComponent({
   components: {
     Drawer,
@@ -202,7 +209,7 @@ export default defineComponent({
     UserSetingModal,
     Avatar,
   },
-  setup() {
+  async setup() {
     const router = useRouter();
 
     // 是否深色模式
@@ -210,7 +217,9 @@ export default defineComponent({
     // 是否显示侧边栏
     let usedrawer = reactive({ isOpen: false, direction: 3000 });
     // 是否登录
-    let userinfo = ref(JSON.parse(localStorage.getItem('userinfo') || ''));
+    const { data: userinfoData } = await getCurrentUserinfo();
+    let userinfo = reactive(userinfoData || {});
+
     // 是否弹窗
     let userModal = reactive({ isOpen: false, direction: 3000 });
     // 切换暗间/白天模式
@@ -225,10 +234,20 @@ export default defineComponent({
     };
     // 退出登录
     const signOut = () => {
-      localStorage.removeItem('userinfo');
       localStorage.removeItem('password');
       sessionStorage.removeItem('token');
+      sessionStorage.removeItem('userid');
       router.push('/login');
+    };
+
+    // 更新值
+    const setUserinfo = (newUserinfo: any) => {
+      userinfo = newUserinfo;
+    };
+
+    // 更新头像
+    const setAvatar = (url: string) => {
+      userinfo.avatar = url;
     };
     return {
       // 变量
@@ -239,6 +258,8 @@ export default defineComponent({
       // 函数
       changeDark,
       signOut,
+      setUserinfo,
+      setAvatar,
     };
   },
 });

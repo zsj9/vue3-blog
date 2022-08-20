@@ -11,15 +11,23 @@
         text-xl text-white
         border
       "
-      :class="[square ? 'rounded' : 'rounded-full']"
+      :class="[
+        square ? 'rounded' : 'rounded-full',
+        { 'bg-orange-300': !src && !!name },
+      ]"
       :style="{ width: width, height: height }"
     >
-      <img v-if="src" :src="src" />
+      <img
+        class="w-full h-full object-cover"
+        :class="[square ? 'rounded' : 'rounded-full']"
+        v-if="src"
+        :src="src"
+      />
       <span v-else-if="name">{{ name[0] }}</span>
       <img
         v-else
         src="@/assets/images/default_user.png"
-        class="w-full h-full"
+        class="w-full h-full object-cover"
       />
     </div>
   </div>

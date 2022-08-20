@@ -3,22 +3,32 @@ import httpRequest from '@/request/index'
 
 // 
 interface Userinfo {
-	id: string
-	user_id: string
+	_id: string
+	userId: string
 	name: string
-	photo_id: string
-	birth_at: string
+	photoId: string
+	avatar: string
+	birthAt: Date
 	sex: string
-	auth_ids: string
-	created_at: string
-	updated_at: string
-	deleted_at: string
+	remark: string
+	authIds: string
+	createdAt: string
+	updatedAt: string
+	deletedAt: string
 }
 
 interface ResultParams {
 	code: number | string
 	message: string
 	data: Userinfo
+}
+
+interface updateUserinfoParams {
+	_id: string
+	name: string
+	birthAt: string
+	sex: string
+	remark: string
 }
 
 // 上传用户图片
@@ -34,10 +44,21 @@ export function userinfoUpload(param: any): Promise<ResultParams> {
 	})
 }
 
-// export function findUserinfo(param: { user_id: string }): Promise<ResultParams> {
-// 	return httpRequest({
-// 		url: 'userinfo/find',
-// 		method: 'post',
-// 		data: param,
-// 	})
-// }
+// 获取当前用户信息
+export function getCurrentUserinfo(): Promise<ResultParams> {
+	const userid = sessionStorage.getItem('userid');
+	return httpRequest({
+		url: 'userinfo/find',
+		method: 'post',
+		data: { userid },
+	})
+}
+
+// 获取当前用户信息
+export function updateUserinfo(param: updateUserinfoParams): Promise<ResultParams> {
+	return httpRequest({
+		url: 'userinfo/update',
+		method: 'post',
+		data: param,
+	})
+}

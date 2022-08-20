@@ -97,7 +97,7 @@ export default defineComponent({
       userLogin({ username: user.username, password }).then(res => {
         if (res.code === 200) {
           sessionStorage.setItem('token', res.data.token);
-          localStorage.setItem('userinfo', JSON.stringify(res.data));
+          sessionStorage.setItem('userid', res.data._id);
           if (user.remember) {
             localStorage.setItem('password', 'Bting' + Base64.encode(password));
           }

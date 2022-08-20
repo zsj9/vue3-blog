@@ -1,7 +1,9 @@
 <template>
   <div class="flex flex-col min-h-screen">
     <!-- 头部 -->
-    <HomeHeader />
+    <suspense>
+      <HomeHeader />
+    </suspense>
     <!-- 内容 -->
     <main class="container mx-auto flex-1">
       <router-view />

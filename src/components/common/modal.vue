@@ -125,6 +125,7 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
+    console.log('进入modal了');
     const closeModal = () => {
       emit('close');
     };
