@@ -37,10 +37,7 @@ export function userinfoUpload(param: any): Promise<ResultParams> {
 	return httpRequest({
 		url: 'userinfo/upload',
 		method: 'post',
-		data: param,
-		headers: {
-			"content-type": "multipart/form-data"
-		}
+		data: param
 	})
 }
 
