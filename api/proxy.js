@@ -6,7 +6,7 @@
 //   // 代理目标地址
 //   // 这里使用 api 主要用于区分 vercel serverless 的 api 路径
 //   if (req.url.startsWith('/api')) {
-//     target = 'https://node-server-puce.vercel.app'
+//     target = 'https://node-server-puce.vercel.app/api'
 //   }
 
 //   // 创建代理对象并转发请求
@@ -16,7 +16,7 @@
 //     pathRewrite: {
 //       // 通过路径重写，去除请求路径中的 `/api`
 //       // 例如 /api/user/login 将被转发到 https://node-server-puce.vercel.app/user/login
-//       '^/api/': '/api'
+//       '^/api/': '/'
 //     }
 //   })(req, res)
 // }
@@ -35,6 +35,12 @@ module.exports = (req, res) => {
   const options = {
     'method': 'POST',
     'url': target,
+    'headers': {
+      // 设置后端需要的传参类型
+      'Content-Type': 'application/json',
+      'token': '',
+      'X-Requested-With': 'XMLHttpRequest',
+    },
   };
   request(options, function (error, response) {
     if (error) throw new Error(error);
