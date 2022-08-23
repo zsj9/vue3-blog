@@ -1,6 +1,5 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = process.env.NODE_ENV === "production" ? "https://node-server-puce.vercel.app/api" : "http://127.0.0.1:8080/api"
 // 创建一个 axios 实例
 const service = axios.create({
 	baseURL: '/api', // 所有的请求地址前缀部分
