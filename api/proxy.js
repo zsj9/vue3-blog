@@ -30,12 +30,12 @@ module.exports = (req, res) => {
   if (!req.url.startsWith(prefix)) {
     return;
   }
-  console.log("req", req)
-  console.log("res", res)
+  console.log("req", req.body)
+  // console.log("res", res)
   let target = "https://node-server-puce.vercel.app" + req.url;
 
   const options = {
-    'method': 'POST',
+    'method': req.method,
     'url': target,
     'headers': {
       // 设置后端需要的传参类型
@@ -43,10 +43,7 @@ module.exports = (req, res) => {
       'token': '',
       'X-Requested-With': 'XMLHttpRequest',
     },
-    params: {
-      "username": "admin",
-      "password": 123456
-    }
+    data: req.body
   };
   request(options, function (error, response) {
     if (error) throw new Error(error);
