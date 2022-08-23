@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://node-server-puce.vercel.app/$1"
+      "destination": "https://node-server-puce.vercel.app/api/$1"
     }
   ]
 }
