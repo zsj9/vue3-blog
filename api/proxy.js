@@ -30,6 +30,8 @@ module.exports = (req, res) => {
   if (!req.url.startsWith(prefix)) {
     return;
   }
+  console.log("req", req)
+  console.log("res", res)
   let target = "https://node-server-puce.vercel.app" + req.url;
 
   const options = {
@@ -41,6 +43,10 @@ module.exports = (req, res) => {
       'token': '',
       'X-Requested-With': 'XMLHttpRequest',
     },
+    params: {
+      "username": "admin",
+      "password": 123456
+    }
   };
   request(options, function (error, response) {
     if (error) throw new Error(error);
