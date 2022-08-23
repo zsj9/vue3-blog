@@ -6,15 +6,11 @@ module.exports = (req, res) => {
   if (!req.url.startsWith(prefix)) {
     return;
   }
-  let target = "https://node-server-puce.vercel.app" + req.url.substring(prefix.length);
+  let target = "https://node-server-puce.vercel.app" + req.url;
 
   const options = {
     'method': 'POST',
     'url': target,
-    'headers': {
-      'Notion-Version': res.headers['notion-version'],
-      'Authorization': res.headers['authorization']
-    }
   };
   request(options, function (error, response) {
     if (error) throw new Error(error);
