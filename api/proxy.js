@@ -6,7 +6,7 @@ module.exports = (req, res) => {
   // 代理目标地址
   // 这里使用 api 主要用于区分 vercel serverless 的 api 路径
   if (req.url.startsWith('/api')) {
-    target = 'https://node-server-puce.vercel.app/api'
+    target = 'https://node-server-puce.vercel.app'
   }
 
   // 创建代理对象并转发请求
