@@ -9,7 +9,7 @@ module.exports = (req, res) => {
   let target = "https://node-server-puce.vercel.app" + req.url.substring(prefix.length);
 
   const options = {
-    'method': 'GET',
+    'method': 'POST',
     'url': target,
     'headers': {
       'Notion-Version': res.headers['notion-version'],
