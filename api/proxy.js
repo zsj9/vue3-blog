@@ -35,10 +35,6 @@ module.exports = (req, res) => {
   const options = {
     'method': 'POST',
     'url': target,
-    'headers': {
-      'Notion-Version': res.headers['notion-version'],
-      'Authorization': res.headers['authorization']
-    }
   };
   request(options, function (error, response) {
     if (error) throw new Error(error);
