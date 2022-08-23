@@ -13,6 +13,11 @@ module.exports = (req, res) => {
   createProxyMiddleware({
     target,
     changeOrigin: true,
+    pathRewrite: {
+      // 通过路径重写，去除请求路径中的 `/api`
+      // 例如 /api/user/login 将被转发到 https://node-server-puce.vercel.app/user/login
+      '^/api/': ''
+    }
   })(req, res)
 }
 
