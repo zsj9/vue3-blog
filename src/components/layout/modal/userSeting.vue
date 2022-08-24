@@ -8,21 +8,9 @@
     >
       <div class="flex flex-col items-center space-y-4">
         <Avatar width="100px" height="100px" square :src="userinfo.avatar" />
+        <!-- 上传头像 -->
         <label class="cursor-pointer">
-          <span
-            class="
-              mt-2
-              text-base
-              leading-normal
-              px-4
-              py-2
-              bg-blue-500
-              text-white
-              rounded-full
-            "
-          >
-            上传头像
-          </span>
+          <span class="img-btn">上传头像</span>
           <input
             ref="uploadForm"
             class="hidden"
@@ -155,3 +143,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.img-btn {
+  @apply mt-2 text-base leading-normal px-4 py-2 bg-blue-500 text-white rounded-full;
+}
+</style>

@@ -1,9 +1,11 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Layout from '@/components/layout/index.vue'
-import Home from '@/views/home/home.vue'
 import Login from '@/views/login/login.vue'
 import Register from '@/views/register/register.vue'
-
+import Layout from '@/components/layout/index.vue'
+import Home from '@/views/home/home.vue'
+import Tag from '@/views/tag/tag.vue'
+import Class from '@/views/class/class.vue'
+import Files from '@/views/files/files.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -30,6 +32,21 @@ const routes: Array<RouteRecordRaw> = [
         path: '/blog',
         name: 'Home',
         component: Home
+      },
+      {
+        path: '/tag',
+        name: 'Tag',
+        component: Tag
+      },
+      {
+        path: '/class',
+        name: 'Class',
+        component: Class
+      },
+      {
+        path: '/files',
+        name: 'Files',
+        component: Files
       }
     ]
   },

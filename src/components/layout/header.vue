@@ -8,10 +8,30 @@
       <div class="flex flex-row items-center justify-between flex-1">
         <!-- 导航条 -->
         <div class="flex flex-row items-center space-x-6">
-          <button>首页</button>
-          <button>标签</button>
-          <button>分类</button>
-          <button>归档</button>
+          <router-link
+            to="/blog"
+            :class="[{ 'text-blue-600': currentRoute == '/blog' }]"
+          >
+            首页
+          </router-link>
+          <router-link
+            to="/tag"
+            :class="[{ 'text-blue-600': currentRoute == '/tag' }]"
+          >
+            标签
+          </router-link>
+          <router-link
+            to="/class"
+            :class="[{ 'text-blue-600': currentRoute == '/class' }]"
+          >
+            分类
+          </router-link>
+          <router-link
+            to="/files"
+            :class="[{ 'text-blue-600': currentRoute == '/files' }]"
+          >
+            归档
+          </router-link>
         </div>
         <!-- 模式、搜索 -->
         <div class="flex">
@@ -63,6 +83,7 @@
                 w-56
                 bg-white
                 ring-1 ring-black ring-opacity-5
+                z-50
               "
             >
               <div class="px-1 py-1">
@@ -190,7 +211,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive } from 'vue'; // @ is an alias to /src
+import { defineComponent, ref, reactive, inject, watch } from 'vue'; // @ is an alias to /src
 import { useRouter } from 'vue-router';
 import Drawer from '@/components/common/drawer.vue';
 import Avatar from '@/components/common/avatar.vue';
@@ -210,6 +231,7 @@ export default defineComponent({
     Avatar,
   },
   async setup() {
+    const reload: any = inject('reload');
     const router = useRouter();
 
     // 是否深色模式
@@ -219,9 +241,20 @@ export default defineComponent({
     // 是否登录
     const { data: userinfoData } = await getCurrentUserinfo();
     let userinfo = reactive(userinfoData || {});
-
     // 是否弹窗
     let userModal = reactive({ isOpen: false, direction: 3000 });
+
+    let currentRoute: { value: string } = ref(router.currentRoute.value.path);
+
+    // eslint-disable-next-line vue/no-watch-after-await
+    watch(
+      () => router.currentRoute.value.path,
+      newValue => {
+        currentRoute.value = newValue ? newValue.toString() : '';
+      },
+      { immediate: true },
+    );
+
     // 切换暗间/白天模式
     const changeDark = () => {
       if (document.documentElement.classList.value !== 'dark') {
@@ -232,6 +265,7 @@ export default defineComponent({
         document.documentElement.classList.remove('dark');
       }
     };
+
     // 退出登录
     const signOut = () => {
       localStorage.removeItem('password');
@@ -242,12 +276,14 @@ export default defineComponent({
 
     // 更新值
     const setUserinfo = (newUserinfo: any) => {
-      userinfo = newUserinfo;
+      Object.assign(userinfo, newUserinfo);
+      reload();
     };
 
     // 更新头像
     const setAvatar = (url: string) => {
       userinfo.avatar = url;
+      reload();
     };
     return {
       // 变量
@@ -255,6 +291,7 @@ export default defineComponent({
       usedrawer,
       userinfo,
       userModal,
+      currentRoute,
       // 函数
       changeDark,
       signOut,

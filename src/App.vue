@@ -1,6 +1,8 @@
 <template>
   <div style="height: 100%">
-    <router-view />
+    <suspense>
+      <router-view />
+    </suspense>
     <Particles />
   </div>
 </template>
