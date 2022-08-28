@@ -4,7 +4,7 @@ import Register from '@/views/register/register.vue'
 import Layout from '@/components/layout/index.vue'
 import Home from '@/views/home/home.vue'
 import Tag from '@/views/tag/tag.vue'
-import Class from '@/views/class/class.vue'
+import Type from '@/views/type/type.vue'
 import Files from '@/views/files/files.vue'
 
 const routes: Array<RouteRecordRaw> = [
@@ -39,9 +39,9 @@ const routes: Array<RouteRecordRaw> = [
         component: Tag
       },
       {
-        path: '/class',
-        name: 'Class',
-        component: Class
+        path: '/type',
+        name: 'type',
+        component: Type
       },
       {
         path: '/files',

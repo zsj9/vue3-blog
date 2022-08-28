@@ -21,8 +21,8 @@
             标签
           </router-link>
           <router-link
-            to="/class"
-            :class="[{ 'text-blue-600': currentRoute == '/class' }]"
+            to="/type"
+            :class="[{ 'text-blue-600': currentRoute == '/type' }]"
           >
             分类
           </router-link>
@@ -211,14 +211,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, inject, watch } from 'vue'; // @ is an alias to /src
+import { defineComponent, ref, reactive, watch } from 'vue'; // @ is an alias to /src
 import { useRouter } from 'vue-router';
 import Drawer from '@/components/common/drawer.vue';
 import Avatar from '@/components/common/avatar.vue';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
 import UserSetingModal from './modal/userSeting.vue';
-// api
-import { getCurrentUserinfo } from '@/apis/userinfo';
 
 export default defineComponent({
   components: {
@@ -230,23 +228,24 @@ export default defineComponent({
     UserSetingModal,
     Avatar,
   },
-  async setup() {
-    const reload: any = inject('reload');
+  props: {
+    userinfo: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
+  setup(props: any, { emit }) {
     const router = useRouter();
 
     // 是否深色模式
     let isDarkMode: { value: boolean } = ref(false);
     // 是否显示侧边栏
     let usedrawer = reactive({ isOpen: false, direction: 3000 });
-    // 是否登录
-    const { data: userinfoData } = await getCurrentUserinfo();
-    let userinfo = reactive(userinfoData || {});
     // 是否弹窗
     let userModal = reactive({ isOpen: false, direction: 3000 });
-
+    // 是否当前路由
     let currentRoute: { value: string } = ref(router.currentRoute.value.path);
 
-    // eslint-disable-next-line vue/no-watch-after-await
     watch(
       () => router.currentRoute.value.path,
       newValue => {
@@ -274,22 +273,17 @@ export default defineComponent({
       router.push('/login');
     };
 
-    // 更新值
-    const setUserinfo = (newUserinfo: any) => {
-      Object.assign(userinfo, newUserinfo);
-      reload();
+    const setUserinfo = (value: any) => {
+      emit('setUserinfo', value);
     };
 
-    // 更新头像
-    const setAvatar = (url: string) => {
-      userinfo.avatar = url;
-      reload();
+    const setAvatar = (value: string) => {
+      emit('setUserinfo', value);
     };
     return {
       // 变量
       isDarkMode,
       usedrawer,
-      userinfo,
       userModal,
       currentRoute,
       // 函数

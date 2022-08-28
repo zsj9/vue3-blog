@@ -1,11 +1,11 @@
 <template>
-  <div>class</div>
+  <div>Type</div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'Class',
+  name: 'Type',
   setup() {
     return {};
   },
